@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tech_task/features/core/controller/ingredients_controller.dart';
-import 'package:tech_task/features/core/controller/recipe_controller.dart';
+import 'package:tech_task/features/navigation/navigator.dart';
+import 'package:tech_task/features/presentation/recipes_view.dart';
 
 import '../../const/const.dart';
 
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppNavigator.pushNamedAndClear(AppRoutes.shop);
+                  },
                   icon: const Icon(
                     Icons.shopping_bag,
                     color: Colors.black,
@@ -107,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                     // enabled: !ingredient.isExpired,
                     onTap: () {
                       // if (!ingredient.isExpired) {
-                      //   Get.to(() => RecipesView(ingredient: ingredient.name));
+                      Get.to(() => RecipesView(ingredient: ingredient.title));
                       // }
                     },
                   );
