@@ -8,7 +8,7 @@ class RecipesView extends StatelessWidget {
 
   final String ingredient;
 
-  RecipesView({required this.ingredient}) {
+  RecipesView({super.key, required this.ingredient}) {
     _controller.getRecipes([ingredient]);
   }
 

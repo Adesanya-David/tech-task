@@ -40,20 +40,20 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {
-                    AppNavigator.pushNamedAndClear(AppRoutes.shop);
-                  },
+                  onPressed: () =>
+                      AppNavigator.pushNamedAndClear(AppRoutes.shop),
                   icon: const Icon(
                     Icons.shopping_bag,
                     color: Colors.black,
                   ),
                 ),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    ))
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                )
               ],
             ),
             const SizedBox(
@@ -84,8 +84,8 @@ class _HomePageState extends State<HomePage> {
                       _controller.getIngredients();
                     }
                   },
-                  child: Text(
-                      'Date: ${DateFormat('yyyy-MM-dd').format(_controller.date.value)}'),
+                  child: Obx(() => Text(
+                      'Date: ${DateFormat('yyyy-MM-dd').format(_controller.date.value)}')),
                 ),
                 const SizedBox(width: 90),
                 ElevatedButton(
@@ -97,22 +97,32 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Expanded(
               child: ListView.builder(
                 itemCount: _controller.ingredients.length,
                 itemBuilder: (context, index) {
                   final ingredient = _controller.ingredients[index];
+
+                  final isExpired = ingredient.useBy.isBefore(DateTime.now());
+
                   return ListTile(
                     title: Text(ingredient.title),
                     subtitle: Text(
                         'Use by: ${DateFormat('yyyy-MM-dd').format(ingredient.useBy)}'),
-                    // enabled: !ingredient.isExpired,
-                    onTap: () {
-                      // if (!ingredient.isExpired) {
-                      Get.to(() => RecipesView(ingredient: ingredient.title));
-                      // }
-                    },
+                    enabled: isExpired,
+                    onTap: !isExpired
+                        ? null
+                        : () {
+                            Get.to(() =>
+                                RecipesView(ingredient: ingredient.title));
+                          },
+
+                    // () {
+                    //   if (!ingredient.isExpired) {
+                    //   Get.to(() => RecipesView(ingredient: ingredient.title));
+                    //   }
+                    // },
                   );
                 },
               ),

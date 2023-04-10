@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 import '../../const/const.dart';
 
@@ -10,20 +11,14 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
-  static final GlobalKey<ScaffoldState> _scaffoldKey =
-      GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      body: Column(children: [
-        Center(
+      body: Center(
           child: Text(
-            "Grocery shop coming soon!",
-            style: Styles.headlineStyle,
-          ),
-        ),
-      ]),
+        "Grocery shopping would be available soon",
+        style: Styles.bodyText.copyWith(color: Colors.black),
+      )),
     );
   }
 }

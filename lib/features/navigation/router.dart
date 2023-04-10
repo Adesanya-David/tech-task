@@ -1,11 +1,14 @@
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tech_task/features/navigation/route.dart';
 import 'package:tech_task/features/presentation/home.dart';
 import 'package:tech_task/features/presentation/shop.dart';
+import '../core/controller/recipe_controller.dart';
 
 abstract class AppRouter {
+  final _controller = Get.find<RecipeController>();
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homePage:
@@ -14,7 +17,6 @@ abstract class AppRouter {
       case AppRoutes.shop:
         return getPageRoute(settings: settings, view: const Shop());
 
-      //! EDIT PROFILE
       default:
         return getPageRoute(
           settings: settings,
