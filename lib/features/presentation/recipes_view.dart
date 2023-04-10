@@ -14,20 +14,22 @@ class RecipesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Recipes for $ingredient'),
-      ),
-      body: Obx(
-        () => ListView.builder(
-          itemCount: _controller.recipes.length,
-          itemBuilder: (context, index) {
-            final recipe = _controller.recipes[index];
-            return ListTile(
-              title: Text(recipe.title),
-              subtitle: Text(recipe.ingredients.join(', ')),
-            );
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Recipes for $ingredient'),
+        ),
+        body: Obx(
+          () => ListView.builder(
+            itemCount: _controller.recipes.length,
+            itemBuilder: (context, index) {
+              final recipe = _controller.recipes[index];
+              return ListTile(
+                title: Text(recipe.title),
+                subtitle: Text(recipe.ingredients.join(', ')),
+              );
+            },
+          ),
         ),
       ),
     );

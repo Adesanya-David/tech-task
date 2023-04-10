@@ -43,14 +43,4 @@ class IngredientsController extends GetxController {
   bool isSelected(Ingredient ingredient) {
     return selectedIngredients.contains(ingredient);
   }
-
-  // Future<void> getRecipes() async {
-  //   final recipeApiService = Get.find<RecipeApiService>();
-  //   final ingredients =
-  //       selectedIngredients.map((ingredient) => ingredient.title).toList();
-  //   final recipes = await recipeApiService.getRecipes(ingredients);
-  //   if (recipes != null) {
-  //     Get.toNamed('/recipes', arguments: recipes);
-  //   }
-  // }
 }

@@ -15,13 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _dateController = TextEditingController();
+  // final DateTime staticDate = DateTime(2022, 11, 11);
   final _controller = Get.find<IngredientsController>();
-
-  bool _isIngredientExpired(String ingredient) {
-    final expirationDate = DateTime.parse(ingredient.split(',')[1]);
-    return expirationDate.isBefore(DateTime.now());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +35,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () =>
-                      AppNavigator.pushNamedAndClear(AppRoutes.shop),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Grocery Shop coming soon!'),
+                        duration: Duration(seconds: 1),
+                        dismissDirection: DismissDirection.down,
+                      ),
+                    );
+                  },
                   icon: const Icon(
                     Icons.shopping_bag,
                     color: Colors.black,
@@ -98,34 +100,31 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const Divider(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _controller.ingredients.length,
-                itemBuilder: (context, index) {
-                  final ingredient = _controller.ingredients[index];
+            Obx(
+              (() => Expanded(
+                    child: ListView.builder(
+                      itemCount: _controller.ingredients.length,
+                      itemBuilder: (context, index) {
+                        final ingredient = _controller.ingredients[index];
 
-                  final isExpired = ingredient.useBy.isBefore(DateTime.now());
+                        final isExpired =
+                            ingredient.useBy.isBefore(DateTime.now());
 
-                  return ListTile(
-                    title: Text(ingredient.title),
-                    subtitle: Text(
-                        'Use by: ${DateFormat('yyyy-MM-dd').format(ingredient.useBy)}'),
-                    enabled: isExpired,
-                    onTap: !isExpired
-                        ? null
-                        : () {
-                            Get.to(() =>
-                                RecipesView(ingredient: ingredient.title));
-                          },
-
-                    // () {
-                    //   if (!ingredient.isExpired) {
-                    //   Get.to(() => RecipesView(ingredient: ingredient.title));
-                    //   }
-                    // },
-                  );
-                },
-              ),
+                        return ListTile(
+                          title: Text(ingredient.title),
+                          subtitle: Text(
+                              'Use by: ${DateFormat('yyyy-MM-dd').format(ingredient.useBy)}'),
+                          enabled: isExpired,
+                          onTap: !isExpired
+                              ? null
+                              : () {
+                                  Get.to(() => RecipesView(
+                                      ingredient: ingredient.title));
+                                },
+                        );
+                      },
+                    ),
+                  )),
             ),
           ]),
         ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tech_task/features/navigation/route.dart';
 import 'package:tech_task/features/presentation/home.dart';
-import 'package:tech_task/features/presentation/shop.dart';
 import '../core/controller/recipe_controller.dart';
 
 abstract class AppRouter {
@@ -13,9 +12,6 @@ abstract class AppRouter {
     switch (settings.name) {
       case AppRoutes.homePage:
         return getPageRoute(settings: settings, view: const HomePage());
-
-      case AppRoutes.shop:
-        return getPageRoute(settings: settings, view: const Shop());
 
       default:
         return getPageRoute(
